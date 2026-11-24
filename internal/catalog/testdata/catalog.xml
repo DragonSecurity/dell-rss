@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Manifest baseLocation="downloads.dell.com" dateTime="2026-11-23T14:18:06+05:30" identifier="e2b9d6cd-84cd-4963-b1c7-96d1aea6bec6" releaseID="VTXX2" version="26.11.23">
+  <ReleaseNotes>
+    <Display lang="en"><![CDATA[Release Notes]]></Display>
+  </ReleaseNotes>
+  <InventoryComponent releaseID="W5DDD" path="FOLDER1/invCol.exe"></InventoryComponent>
+  <SoftwareBundle releaseID="PH2A86P" path="bundle.xml">
+    <Name><Display lang="en"><![CDATA[Should be skipped]]></Display></Name>
+    <SoftwareComponent path="never/inside/a/bundle.exe" vendorVersion="0"/>
+  </SoftwareBundle>
+  <SoftwareComponent releaseID="R3PGY" releaseDate="October 20, 2026" vendorVersion="2.29.3" path="FOLDER15148387M/1/BIOS_R3PGY_WN64_2.29.3.EXE" dateTime="2026-10-20T03:17:05-05:00" size="50905912" rebootRequired="true">
+    <Name><Display lang="en"><![CDATA[Dell Server PowerEdge BIOS R740/R640 Version 2.29.3]]></Display></Name>
+    <ComponentType value="BIOS"><Display lang="en"><![CDATA[BIOS]]></Display></ComponentType>
+    <Description><Display lang="en"><![CDATA[BIOS update & fixes.]]></Display></Description>
+    <Category value="BI"><Display lang="en"><![CDATA[BIOS]]></Display></Category>
+    <SupportedSystems>
+      <Brand key="3" prefix="PE">
+        <Display lang="en"><![CDATA[PowerEdge]]></Display>
+        <Model systemID="0716"><Display lang="en"><![CDATA[R640]]></Display></Model>
+        <Model systemID="0715"><Display lang="en"><![CDATA[R740]]></Display></Model>
+      </Brand>
+    </SupportedSystems>
+    <RevisionHistory><Display lang="en"><![CDATA[Fixes:
+- Security fixes.]]></Display></RevisionHistory>
+    <ImportantInfo URL="https://www.dell.com/support/home/us/en/19/Drivers/DriversDetails?driverId=R3PGY"></ImportantInfo>
+    <Criticality value="2"><Display lang="en"><![CDATA[Urgent]]></Display></Criticality>
+  </SoftwareComponent>
+  <SoftwareComponent releaseID="IDRAC1" releaseDate="September 1, 2026" vendorVersion="7.00.00.183" path="FOLDER2/iDRAC.EXE" dateTime="2026-09-01T10:00:00Z">
+    <Name><Display lang="en"><![CDATA[iDRAC9 7.00.00.183 <script>alert(1)</script>]]></Display></Name>
+    <ComponentType value="FRMW"><Display lang="en"><![CDATA[Firmware]]></Display></ComponentType>
+    <Category value="iDRAC with Lifecycle Controller"><Display lang="en"><![CDATA[iDRAC with Lifecycle Controller]]></Display></Category>
+    <SupportedSystems>
+      <Brand key="3"><Display lang="en"><![CDATA[PowerEdge]]></Display>
+        <Model><Display lang="en"><![CDATA[R640]]></Display></Model>
+      </Brand>
+    </SupportedSystems>
+    <ImportantInfo URL="javascript:alert(1)"></ImportantInfo>
+    <Criticality value="1"><Display lang="en"><![CDATA[Recommended]]></Display></Criticality>
+  </SoftwareComponent>
+  <SoftwareComponent releaseID="NIC01" releaseDate="January 5, 2026" vendorVersion="22.0" path="FOLDER3/Network.EXE" dateTime="2026-01-05T10:00:00Z">
+    <Name><Display lang="en"><![CDATA[Broadcom NIC firmware]]></Display></Name>
+    <ComponentType value="FRMW"><Display lang="en"><![CDATA[Firmware]]></Display></ComponentType>
+    <Category value="NI"><Display lang="en"><![CDATA[Network / RDMA]]></Display></Category>
+    <SupportedSystems>
+      <Brand key="3"><Display lang="en"><![CDATA[PowerEdge]]></Display>
+        <Model><Display lang="en"><![CDATA[R640]]></Display></Model>
+        <Model><Display lang="en"><![CDATA[R750 xa]]></Display></Model>
+        <Model><Display lang="en"><![CDATA[R750XA]]></Display></Model>
+      </Brand>
+      <Brand key="1"><Display lang="en"><![CDATA[Precision]]></Display>
+        <Model><Display lang="en"><![CDATA[T7920]]></Display></Model>
+      </Brand>
+      <Brand key="2"><Display lang="en"><![CDATA[Enterprise Servers]]></Display>
+        <Model><Display lang="en"><![CDATA[R730]]></Display></Model>
+      </Brand>
+    </SupportedSystems>
+    <Criticality value="3"><Display lang="en"><![CDATA[Optional]]></Display></Criticality>
+  </SoftwareComponent>
+  <SoftwareComponent releaseID="NIC01" releaseDate="January 5, 2026" vendorVersion="22.0" path="FOLDER3/Network.EXE" dateTime="2026-01-05T10:00:00Z">
+    <Name><Display lang="en"><![CDATA[Duplicate of the NIC entry]]></Display></Name>
+    <SupportedSystems>
+      <Brand><Display lang="en"><![CDATA[PowerEdge]]></Display><Model><Display lang="en"><![CDATA[R640]]></Display></Model></Brand>
+    </SupportedSystems>
+  </SoftwareComponent>
+  <SoftwareComponent releaseID="WS01" vendorVersion="1.0" path="FOLDER4/Workstation.EXE" dateTime="2026-02-01T00:00:00Z">
+    <Name><Display lang="en"><![CDATA[Workstation only]]></Display></Name>
+    <SupportedSystems>
+      <Brand><Display lang="en"><![CDATA[Precision]]></Display><Model><Display lang="en"><![CDATA[T7920]]></Display></Model></Brand>
+    </SupportedSystems>
+  </SoftwareComponent>
+</Manifest>
