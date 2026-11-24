@@ -138,3 +138,7 @@ internal/feed            model discovery, filters, RSS and JSON rendering
 internal/server          routing, ETag/Last-Modified, dashboard templates
 internal/metrics         dependency-free Prometheus exposition
 ```
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).
