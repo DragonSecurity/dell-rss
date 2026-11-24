@@ -10,6 +10,23 @@ conditional (`If-None-Match` / `If-Modified-Since`), so an unchanged catalog
 costs a single 304. The last good catalog is kept on disk, so after a restart
 the service starts serving straight away.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/dashboard-dark.png">
+  <img alt="Dashboard: the default model's subscribe links, filter chips and latest updates" src="docs/screenshots/dashboard-light.png">
+</picture>
+
+<details>
+<summary>A filtered model page (<code>/r640/urgent/</code>)</summary>
+<br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/model-dark.png">
+  <img alt="R640 urgent updates, with the Urgent filter selected" src="docs/screenshots/model-light.png">
+</picture>
+</details>
+
+The dashboard follows the system light or dark setting. The screenshots show
+the live catalog on 2026-11-24.
+
 ## Endpoints
 
 | Endpoint                     | Purpose                                                    |
