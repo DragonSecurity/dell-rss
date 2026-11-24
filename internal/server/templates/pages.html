@@ -1,0 +1,162 @@
+{{define "head"}}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{if .Title}}{{.Title}}{{else}}Dell RSS{{end}}</title>
+{{if .FeedPath}}<link rel="alternate" type="application/rss+xml" title="{{.Title}}" href="{{.FeedPath}}">{{else if .Default}}<link rel="alternate" type="application/rss+xml" title="Dell {{.Default.Brand}} {{.Default.Name}} Updates" href="/rss.xml">{{end}}
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #17202b; --muted: #5d6b7a; --line: #dde2e8;
+  --accent: #0b6bcb; --accent-ink: #ffffff; --chip: #eef2f6;
+  --urgent: #b42318; --urgent-bg: #fdecea; --rec: #8a5a00; --rec-bg: #fff4dc; --opt: #4a5868; --opt-bg: #eef1f4;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f141a; --panel: #161d25; --ink: #e4e9ef; --muted: #93a1b0; --line: #26313d;
+    --accent: #4fa3f7; --accent-ink: #08111b; --chip: #1e2833;
+    --urgent: #ff8a80; --urgent-bg: #3a1714; --rec: #f5c46b; --rec-bg: #33270e; --opt: #aab6c3; --opt-bg: #212b36;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+header.top { border-bottom: 1px solid var(--line); background: var(--panel); }
+header.top .wrap { display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between; padding-block: 14px; }
+.brand { font-weight: 650; color: var(--ink); letter-spacing: -0.01em; }
+.meta { color: var(--muted); font-size: 13px; }
+.meta span + span::before { content: "·"; margin: 0 8px; }
+main { padding-block: 28px 48px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.02em; }
+h2 { font-size: 17px; margin: 36px 0 12px; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 22px 0 8px; }
+p.lede { color: var(--muted); margin: 0 0 18px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.subscribe { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0 8px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 7px; font-weight: 600; font-size: 14px; background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); }
+.btn:hover { text-decoration: none; filter: brightness(1.08); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--chip); color: var(--ink); font-size: 13px; border: 1px solid transparent; }
+.chip b { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip.on { border-color: var(--accent); color: var(--accent); }
+.chip:hover { text-decoration: none; border-color: var(--line); }
+.table { width: 100%; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.date, td.ver { white-space: nowrap; font-family: var(--mono); font-size: 13px; }
+td.date { color: var(--muted); }
+.badge { display: inline-block; padding: 1px 8px; border-radius: 5px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.badge.urgent { color: var(--urgent); background: var(--urgent-bg); }
+.badge.recommended { color: var(--rec); background: var(--rec-bg); }
+.badge.optional { color: var(--opt); background: var(--opt-bg); }
+.models { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+.models a { display: flex; justify-content: space-between; gap: 6px; padding: 7px 10px; border-radius: 7px; background: var(--panel); border: 1px solid var(--line); color: var(--ink); font-weight: 550; font-size: 14px; }
+.models a b { font-weight: 400; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.models a:hover { border-color: var(--accent); text-decoration: none; }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+footer { color: var(--muted); font-size: 13px; padding-block: 0 32px; }
+footer a { color: var(--muted); text-decoration: underline; }
+@media (max-width: 640px) {
+  .hide-sm { display: none; }
+  th, td { padding: 8px; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/">Dell update monitor</a>
+  {{if .Snap}}<div class="meta"><span>Catalog {{.Snap.Manifest.Version}}</span><span>published {{datetime .Snap.Modified}}</span><span>checked {{datetime .Checked}}</span></div>{{end}}
+</div></header>
+<main class="wrap">
+{{end}}
+
+{{define "foot"}}
+</main>
+<footer class="wrap">
+  Data from the <a href="https://downloads.dell.com/catalog/Catalog.xml.gz">Dell enterprise catalog</a>.
+  <a href="/api/models">JSON API</a> · <a href="/metrics">Metrics</a> · dell-rss {{.Version}}
+</footer>
+</body>
+</html>
+{{end}}
+
+{{define "updates"}}
+<div class="panel table">
+{{if .}}
+<table>
+  <thead><tr><th>Posted</th><th>Update</th><th>Version</th><th class="hide-sm">Category</th><th>Importance</th></tr></thead>
+  <tbody>
+  {{range .}}
+  <tr>
+    <td class="date">{{date .Posted}}</td>
+    <td>{{if .InfoURL}}<a href="{{.InfoURL}}" rel="noopener">{{.Name}}</a>{{else}}{{.Name}}{{end}}</td>
+    <td class="ver"><a href="{{.DownloadURL}}" rel="noopener" title="Download">{{.Version}}</a></td>
+    <td class="hide-sm">{{.Category}}</td>
+    <td><span class="badge {{lower .Importance}}">{{.Importance}}</span></td>
+  </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<div class="empty">No updates match.</div>
+{{end}}
+</div>
+{{end}}
+
+{{define "dashboard"}}{{template "head" .}}
+{{if .Default}}
+  <h1>{{.Default.Brand}} {{.Default.Name}}</h1>
+  <p class="lede">The {{len .Default.Updates}} firmware, BIOS and driver packages Dell lists for this model, newest first.</p>
+  <div class="subscribe">
+    <a class="btn" href="/rss.xml">RSS feed</a>
+    <a class="btn ghost" href="/{{.Default.Slug}}/">All {{len .Default.Updates}} updates</a>
+    <a class="btn ghost" href="/api/{{.Default.Slug}}">JSON</a>
+  </div>
+  <div class="chips">
+    {{$slug := .Default.Slug}}{{range .Filters}}<a class="chip" href="/{{$slug}}/{{.Slug}}/">{{.Label}} <b>{{.Count}}</b></a>{{end}}
+  </div>
+  <h2>Latest updates</h2>
+  {{template "updates" .Recent}}
+{{else}}
+  <h1>Dell PowerEdge updates</h1>
+  <p class="lede">Choose a model to see its updates and subscribe to its feed.</p>
+{{end}}
+
+<h2>All models <span class="meta">({{len .Snap.Models}})</span></h2>
+{{range .Groups}}
+  <h3>{{.Label}}</h3>
+  <div class="models">{{range .Models}}<a href="/{{.Slug}}/">{{.Name}} <b>{{len .Updates}}</b></a>{{end}}</div>
+{{end}}
+{{template "foot" .}}{{end}}
+
+{{define "model"}}{{template "head" .}}
+  <h1>{{.Model.Brand}} {{.Model.Name}}{{if .Filter.Label}} · {{.Filter.Label}}{{end}}</h1>
+  <p class="lede">{{len .Updates}} update{{if ne (len .Updates) 1}}s{{end}}{{if .Filter.Label}} of {{len .Model.Updates}}{{end}}, newest first. <a href="https://www.dell.com/support/product-details/en-ie/product/poweredge-{{.Model.Slug}}/drivers" rel="noopener">Dell support page</a></p>
+  <div class="subscribe">
+    <a class="btn" href="{{.FeedPath}}">RSS feed</a>
+    <a class="btn ghost" href="{{.APIPath}}">JSON</a>
+  </div>
+  <div class="chips">
+    <a class="chip{{if not .Filter.Slug}} on{{end}}" href="/{{.Model.Slug}}/">All <b>{{len .Model.Updates}}</b></a>
+    {{$slug := .Model.Slug}}{{$on := .Filter.Slug}}{{range .Filters}}<a class="chip{{if eq .Slug $on}} on{{end}}" href="/{{$slug}}/{{.Slug}}/">{{.Label}} <b>{{.Count}}</b></a>{{end}}
+  </div>
+  <h2>Updates</h2>
+  {{template "updates" .Updates}}
+{{template "foot" .}}{{end}}
+
+{{define "loading"}}{{template "head" .}}
+  <h1>Loading the Dell catalog…</h1>
+  <p class="lede">The first download is in progress. This page will work in a moment; refresh to check.</p>
+{{template "foot" .}}{{end}}
+
+{{define "notfound"}}{{template "head" .}}
+  <h1>Not found</h1>
+  <p class="lede">No such model or feed. <a href="/">See every model</a>, or list them at <a href="/api/models">/api/models</a>.</p>
+{{template "foot" .}}{{end}}
